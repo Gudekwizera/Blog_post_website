@@ -49,6 +49,8 @@ def gravatar_url(email: str | None, size=100, default="retro"):
     qs = urllib.parse.urlencode({"s": str(size), "d": default})
     return f"https://www.gravatar.com/avatar/{h}?{qs}"
 
+# then register
+app.jinja_env.globals["gravatar_url"] = gravatar_url
 
 @login_manager.user_loader
 def load_user(user_id):
