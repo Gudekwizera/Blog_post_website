@@ -13,11 +13,10 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 # Optional: add contact me email functionality (Day 60)
 # import smtplib
 import os
-import hashlib, urllib.parse
+
 
 
 # make it available in Jinja
-app.jinja_env.globals["gravatar_url"] = gravatar_url
 
 
 '''
@@ -43,14 +42,6 @@ Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-def gravatar_url(email: str | None, size=100, default="retro"):
-    addr = (email or "").strip().lower().encode("utf-8")
-    h = hashlib.md5(addr).hexdigest()
-    qs = urllib.parse.urlencode({"s": str(size), "d": default})
-    return f"https://www.gravatar.com/avatar/{h}?{qs}"
-
-# then register
-app.jinja_env.globals["gravatar_url"] = gravatar_url
 
 @login_manager.user_loader
 def load_user(user_id):
